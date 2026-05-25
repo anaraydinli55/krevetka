@@ -56,7 +56,7 @@ ul { list-style: none; }
   background: rgba(255,255,255,0.97);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(0,0,0,0.06);
-  height: 80px;
+  height: 72px;
   display: flex;
   align-items: center;
 }
@@ -71,26 +71,25 @@ ul { list-style: none; }
   justify-content: space-between;
 }
 
-/* Logo Düzenlemesi */
+/* LOGO VE TEXT YAN YANA */
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 15px; /* Logo ile yazı arasındaki boşluk */
+  gap: 12px;
 }
 
-.nav-brand-img {
-  height: 55px; /* Logonun boyutu */
+.nav-logo img {
+  height: 52px;
   width: auto;
-  border-radius: 4px;
+  object-fit: contain;
 }
 
 .nav-logo-text {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 900;
   color: var(--navy);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  line-height: 1;
 }
 .nav-logo-text span { color: var(--accent); }
 
@@ -155,7 +154,7 @@ ul { list-style: none; }
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 80px; left: 0; right: 0;
+  top: 72px; left: 0; right: 0;
   background: #fff;
   border-bottom: 1px solid var(--border);
   padding: 1.5rem 2rem;
@@ -178,9 +177,9 @@ ul { list-style: none; }
    HERO SECTION
 ═══════════════════════════════════════════ */
 .hero {
-  margin-top: 80px;
+  margin-top: 72px;
   position: relative;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 72px);
   min-height: 560px;
   overflow: hidden;
 }
@@ -205,6 +204,7 @@ ul { list-style: none; }
   object-position: center;
 }
 
+/* Dark gradient overlay */
 .hero-slide::after {
   content: '';
   position: absolute;
@@ -217,6 +217,7 @@ ul { list-style: none; }
   );
 }
 
+/* Hero content */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -238,6 +239,7 @@ ul { list-style: none; }
   margin-bottom: 2.5rem;
 }
 
+/* Product tabs */
 .hero-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -265,6 +267,7 @@ ul { list-style: none; }
   border-color: rgba(255,255,255,0.7);
 }
 
+/* Hero scroll indicator */
 .hero-scroll {
   position: absolute;
   bottom: 2.5rem;
@@ -309,6 +312,9 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 
+.section-title br + span,
+.section-title .accent { color: var(--accent); }
+
 /* ═══════════════════════════════════════════
    PRODUCTS CAROUSEL
 ═══════════════════════════════════════════ */
@@ -328,6 +334,8 @@ ul { list-style: none; }
   gap: 1rem;
 }
 
+.products-header .section-title { font-size: clamp(1.4rem,3vw,2rem); }
+
 .btn-outline {
   font-size: 0.68rem;
   font-weight: 800;
@@ -342,6 +350,7 @@ ul { list-style: none; }
 }
 .btn-outline:hover { background: var(--navy); color: #fff; }
 
+/* Infinite scroll track */
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
@@ -397,6 +406,8 @@ ul { list-style: none; }
   transition: transform 0.5s ease;
 }
 
+.product-card:hover .product-card-img img { transform: scale(1.07); }
+
 .product-card-label {
   font-size: 0.72rem;
   font-weight: 800;
@@ -408,7 +419,7 @@ ul { list-style: none; }
 }
 
 /* ═══════════════════════════════════════════
-   DISCOVER TILES
+   DISCOVER — 2×2 IMAGE TILES
 ═══════════════════════════════════════════ */
 .discover-section {
   padding: 2rem 0;
@@ -445,6 +456,11 @@ ul { list-style: none; }
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(8,20,50,0.68) 0%, rgba(8,20,50,0.08) 55%);
+  transition: background 0.35s;
+}
+
+.discover-tile:hover::after {
+  background: linear-gradient(to top, rgba(8,20,50,0.80) 0%, rgba(8,20,50,0.20) 55%);
 }
 
 .discover-tile img {
@@ -463,16 +479,48 @@ ul { list-style: none; }
   padding: 2rem 2.5rem;
 }
 
+.tile-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
 .tile-title {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 900;
   color: var(--white);
   text-transform: uppercase;
   line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* Hover arrow */
+.tile-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.8rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.3s ease;
+}
+
+.discover-tile:hover .tile-arrow {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ═══════════════════════════════════════════
-   VIDEO SECTION
+   VIDEO SECTION — OUR COMMITMENT
 ═══════════════════════════════════════════ */
 .video-section {
   position: relative;
@@ -514,7 +562,17 @@ ul { list-style: none; }
   font-weight: 900;
   color: var(--white);
   text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
   margin-bottom: 1.2rem;
+}
+
+.video-content p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.75;
+  font-weight: 400;
+  margin-bottom: 2rem;
 }
 
 .btn-white {
@@ -529,31 +587,229 @@ ul { list-style: none; }
   display: inline-block;
   transition: all 0.25s;
 }
+.btn-white:hover { background: var(--light-blue); }
 
 /* ═══════════════════════════════════════════
-   NEWS & RECIPES (Minimalized for clarity)
+   WHAT'S NEW — NEWS SECTION
 ═══════════════════════════════════════════ */
-.news-section { padding: 5rem 0; background: var(--off-white); }
-.news-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
-.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.news-card { background: var(--white); border-radius: 3px; overflow: hidden; transition: 0.3s; cursor: pointer; }
-.news-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-.news-card-img { width: 100%; height: 200px; overflow: hidden; }
-.news-card-body { padding: 1.5rem; }
+.news-section {
+  padding: 5rem 0;
+  background: var(--off-white);
+}
 
-.recipes-section { padding: 5rem 0; background: var(--white); }
-.recipes-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
-.recipe-row { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 0; border-bottom: 1px solid var(--border); transition: 0.2s; cursor: pointer; }
-.recipe-row:hover { background: var(--off-white); padding-left: 1rem; }
+.news-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.news-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.news-header .section-sub {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.news-card {
+  background: var(--white);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.news-card-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--light-blue);
+}
+
+.news-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.news-card:hover .news-card-img img { transform: scale(1.06); }
+
+.news-card-body {
+  padding: 1.5rem;
+}
+
+.news-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.news-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 0.7rem;
+}
+
+.news-card-body p {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 /* ═══════════════════════════════════════════
-   CTA
+   RECIPES — WHAT WE'VE BEEN COOKING
+═══════════════════════════════════════════ */
+.recipes-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+
+.recipes-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.recipes-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipes-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.recipe-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recipe-row:hover { background: var(--off-white); padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; }
+
+.recipe-row-left { flex: 1; }
+
+.recipe-row-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recipe-row-desc {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+}
+
+.recipe-row-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.recipe-row-go {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+  padding: 8px 18px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.recipe-row:hover .recipe-row-go {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════
+   CTA — LET'S TALK FISH
 ═══════════════════════════════════════════ */
 .cta-section {
   background: var(--navy);
   padding: 6rem 2rem;
   text-align: center;
   position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50%; right: -10%;
+  width: 50%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(37,99,184,0.15) 0%, transparent 70%);
+}
+
+.cta-inner { position: relative; z-index: 2; }
+
+.cta-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  display: block;
+  margin-bottom: 1.2rem;
 }
 
 .cta-section h2 {
@@ -561,6 +817,8 @@ ul { list-style: none; }
   font-weight: 900;
   color: var(--white);
   text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   margin-bottom: 2.5rem;
 }
 
@@ -574,7 +832,9 @@ ul { list-style: none; }
   padding: 16px 40px;
   border-radius: 2px;
   display: inline-block;
+  transition: all 0.25s;
 }
+.btn-cta-white:hover { background: var(--light-blue); }
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -585,43 +845,178 @@ footer {
   border-top: 1px solid var(--border);
 }
 
-.footer-inner { max-width: 1280px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; }
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
 
-/* Footer Logo Düzenleme */
+.footer-top {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr 280px;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+  align-items: start;
+}
+
 .footer-logo-wrap {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 1.5rem;
 }
 
-.footer-brand-img {
-  height: 45px;
+.footer-logo-wrap img {
+  height: 40px;
   width: auto;
-  border-radius: 3px;
 }
 
 .footer-logo-text {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 900;
   color: var(--navy);
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
+.footer-logo-text span { color: var(--accent); }
 
-.footer-col h4 { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1.2rem; border-bottom: 2px solid var(--navy); display: inline-block; }
-.footer-col ul li { margin-bottom: 0.6rem; font-size: 0.78rem; color: var(--text-mid); }
+.footer-col h4 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--navy);
+  display: inline-block;
+}
+
+.footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.footer-col ul li a {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  font-weight: 500;
+  transition: color 0.2s;
+  letter-spacing: 0.03em;
+}
+.footer-col ul li a:hover { color: var(--navy); }
+
+/* Newsletter */
+.newsletter-col h4 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--navy);
+  display: inline-block;
+}
+
+.newsletter-form {
+  display: flex;
+  margin-top: 0.5rem;
+  border: 1.5px solid var(--navy);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 11px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--navy);
+  outline: none;
+}
+
+.newsletter-form input::placeholder { color: var(--text-light); }
+
+.newsletter-form button {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  padding: 11px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.newsletter-form button:hover { background: var(--accent); }
+
+/* Footer bottom */
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+.footer-bottom p a {
+  color: var(--text-mid);
+  font-weight: 600;
+}
+.footer-bottom p a:hover { color: var(--navy); }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1fr 1fr 1fr; }
+  .discover-grid { gap: 10px; }
+  .discover-tile img { min-height: 260px; }
+}
+
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
-  .discover-grid { grid-template-columns: 1fr; }
+
+  .hero-heading { font-size: 2.4rem; }
+  .hero-content { padding: 0 5vw; }
+
+  .discover-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .discover-tile img { min-height: 240px; }
+
+  .video-section { height: 500px; }
+
   .footer-top { grid-template-columns: 1fr 1fr; }
-  .nav-logo-text { font-size: 1.1rem; }
-  .nav-brand-img { height: 45px; }
+  .footer-logo-wrap { grid-column: 1/-1; }
+  .newsletter-col { grid-column: 1/-1; }
+
+  .products-header { flex-direction: column; align-items: flex-start; }
+
+  .news-header { flex-direction: column; }
+  .recipes-header { flex-direction: column; }
+
+  .cta-section h2 { font-size: 2.2rem; }
+
+  .recipe-row-tag { display: none; }
+}
+
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-tabs { gap: 0.4rem; }
+  .hero-tab { padding: 7px 13px; font-size: 0.65rem; }
+  .nav-logo img { height: 40px; }
+  .nav-logo-text { font-size: 1.2rem; }
 }
 </style>
 </head>
@@ -631,8 +1026,8 @@ footer {
 <nav class="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <!-- LOGO BURADA: logo.jpeg görselini çeker -->
-      <img src="logo.jpeg" alt="Krevetka Logo" class="nav-brand-img">
+      <!-- LOGO BURADA -->
+      <img src="logo.jpeg" alt="Krevetka Şəki">
       <div class="nav-logo-text">KREVETKA <span>ŞƏKİ</span></div>
     </a>
 
@@ -644,7 +1039,7 @@ footer {
       <li><a href="#contact" class="nav-cta">CONTACT US</a></li>
     </ul>
 
-    <div class="nav-hamburger" onclick="toggleMobileMenu()">
+    <div class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </div>
   </div>
@@ -659,19 +1054,36 @@ footer {
   <a href="#contact"  onclick="toggleMobileMenu()">CONTACT US</a>
 </div>
 
+
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero" id="home">
+
+  <!-- Background slides -->
   <div class="hero-slides">
-    <div class="hero-slide active"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=1800&q=80" alt="1"></div>
-    <div class="hero-slide"><img src="xerceng1.jpeg" alt="2"></div>
-    <div class="hero-slide"><img src="kalmar1.jpeg" alt="3"></div>
-    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=1800&q=80" alt="4"></div>
-    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=1800&q=80" alt="5"></div>
-    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=1800&q=80" alt="6"></div>
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=1800&q=80" alt="Krevetka">
+    </div>
+    <div class="hero-slide">
+      <img src="xerceng1.jpeg" alt="Xərçəng">
+    </div>
+    <div class="hero-slide">
+      <img src="kalmar1.jpeg" alt="Kalmar">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=1800&q=80" alt="Balıqlar">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=1800&q=80" alt="Dəniz İlbizi">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=1800&q=80" alt="Dəniz Xərçəngi">
+    </div>
   </div>
 
+  <!-- Text + tabs -->
   <div class="hero-content">
     <h1 class="hero-heading">ŞƏKİYƏ<br>DƏNİZ LƏZZƏTİ<br>GƏTİRDİK</h1>
+
     <div class="hero-tabs">
       <button class="hero-tab active" data-idx="0">Krevetka</button>
       <button class="hero-tab" data-idx="1">Xərçəng</button>
@@ -682,10 +1094,13 @@ footer {
     </div>
   </div>
 
-  <div class="hero-scroll"><div class="hero-scroll-line"></div></div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+  </div>
 </section>
 
-<!-- ═══════════════ PRODUCTS ═══════════════ -->
+
+<!-- ═══════════════ PRODUCTS CAROUSEL ═══════════════ -->
 <section class="products-section" id="products">
   <div class="products-header">
     <div>
@@ -696,155 +1111,363 @@ footer {
   </div>
 
   <div class="carousel-wrapper">
-    <div class="carousel-track">
-      <!-- Məhsul Kartları -->
+    <div class="carousel-track" id="carouselTrack">
       <div class="product-card">
-        <div class="product-card-img"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="K"></div>
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="Krevetka">
+        </div>
         <div class="product-card-label">KREVETKA</div>
       </div>
       <div class="product-card">
-        <div class="product-card-img"><img src="xerceng1.jpeg" alt="X"></div>
+        <div class="product-card-img">
+          <img src="xerceng1.jpeg" alt="Xərçəng">
+        </div>
         <div class="product-card-label">XƏRÇƏNG</div>
       </div>
       <div class="product-card">
-        <div class="product-card-img"><img src="kalmar1.jpeg" alt="KA"></div>
+        <div class="product-card-img">
+          <img src="kalmar1.jpeg" alt="Kalmar">
+        </div>
+        <div class="product-card-label">DƏNİZ İLBİZİ</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=600&q=70" alt="Balıqlar">
+        </div>
+        <div class="product-card-label">DƏNİZ XƏRÇƏNGİ</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=70" alt="Dəniz İlbizi">
+        </div>
+        <div class="product-card-label">BALIQLAR</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="kalmar1.jpeg" alt="Kalmar">
+        </div>
         <div class="product-card-label">KALMAR</div>
       </div>
-      <!-- Döngü üçün eyniləri təkrar olunur -->
+      <!-- Duplicates -->
       <div class="product-card">
-        <div class="product-card-img"><img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="K"></div>
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="Krevetka">
+        </div>
         <div class="product-card-label">KREVETKA</div>
       </div>
       <div class="product-card">
-        <div class="product-card-img"><img src="xerceng1.jpeg" alt="X"></div>
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70" alt="Xərçəng">
+        </div>
         <div class="product-card-label">XƏRÇƏNG</div>
       </div>
       <div class="product-card">
-        <div class="product-card-img"><img src="kalmar1.jpeg" alt="KA"></div>
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=70" alt="Dəniz İlbizi">
+        </div>
+        <div class="product-card-label">DƏNİZ İLBİZİ</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=600&q=70" alt="Dəniz Xərçəngi">
+        </div>
+        <div class="product-card-label">DƏNİZ XƏRÇƏNGİ</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=70" alt="Balıqlar">
+        </div>
+        <div class="product-card-label">BALIQLAR</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="kalmar1.jpeg" alt="Kalmar">
+        </div>
         <div class="product-card-label">KALMAR</div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- ═══════════════ DISCOVER ═══════════════ -->
 <section class="discover-section" id="discover">
   <div class="discover-inner">
     <div class="discover-header">
-      <span class="section-eyebrow">Kəşfet</span>
-      <h2 class="section-title">DƏNİZ MƏHSULLARI</h2>
+      <span class="section-eyebrow">Dəniz Məhsullarını Kəşfet</span>
+      <h2 class="section-title">DƏNİZ MƏHSULLARINI KƏŞFET</h2>
     </div>
+
     <div class="discover-grid">
       <a href="#products" class="discover-tile">
-        <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&q=75" alt="T1">
+        <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&q=75" alt="Məhsullarımız">
         <div class="discover-tile-content">
-          <div class="tile-title">YÜKSƏK KEYFİYYƏT</div>
+          <span class="tile-eyebrow">Məhsullarımız</span>
+          <div class="tile-title">YÜKSƏK KEYFİYYƏTLİ<br>DƏNİZ MƏHSULLARI</div>
+          <div class="tile-arrow">Explore →</div>
         </div>
       </a>
+
       <a href="#" class="discover-tile">
-        <img src="sheki.jpeg" alt="T2">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=75" alt="İş Prosesimiz">
         <div class="discover-tile-content">
-          <div class="tile-title">ŞƏKİ MAĞAZAMIZ</div>
+          <span class="tile-eyebrow">İş Prosesimiz</span>
+          <div class="tile-title">DƏNİZDƏN<br>SÜFRƏYƏ</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+      <a href="#" class="discover-tile">
+        <img src="sheki.jpeg" alt="The Team">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">Mağazamız</span>
+          <div class="tile-title">ŞƏKİDƏ<br>YERLƏŞİR</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+      <a href="#recipes" class="discover-tile">
+        <img src="baliq-pive2.jpeg" alt="Recipes">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">Dadlı Reseptlər</span>
+          <div class="tile-title">PİVƏ<br>LƏZZƏTİ</div>
+          <div class="tile-arrow">Explore →</div>
         </div>
       </a>
     </div>
   </div>
 </section>
+
 
 <!-- ═══════════════ VIDEO ═══════════════ -->
 <section class="video-section">
   <div class="video-bg">
-    <video autoplay muted loop playsinline src="https://blueseaproducts.com/wp-content/uploads/2022/06/pexels-rostislav-uzunov-7513671.mp4"></video>
+    <video autoplay muted loop playsinline
+      src="https://blueseaproducts.com/wp-content/uploads/2022/06/pexels-rostislav-uzunov-7513671.mp4">
+    </video>
   </div>
   <div class="video-content">
     <h2>BİZİM XİDMƏTLƏRİMİZ</h2>
-    <p>Ən təzə dəniz məhsullarını birbaşa sizin süfrənizə gətiririk.</p>
+    <p>Məqsədimiz müştərilərimizə ən yüksək keyfiyyətli məhsul və xidmətləri təqdim etməkdir.</p>
     <a href="#" class="btn-white">DAHA ÇOX</a>
   </div>
 </section>
 
+
 <!-- ═══════════════ NEWS ═══════════════ -->
 <section class="news-section" id="news">
   <div class="news-inner">
+    <div class="news-header">
+      <div>
+        <span class="section-eyebrow">YENİ GƏLƏNLƏR</span>
+        <h2 class="section-title">YENİ MƏHSULLAR</h2>
+        <p class="section-sub" style="margin-top:.6rem;font-size:.8rem;color:#4a5568">Ən təzə məhsullarımız</p>
+      </div>
+      <a href="#" class="btn-outline">DAHA ÇOX OXU</a>
+    </div>
+
     <div class="news-grid">
       <div class="news-card">
-        <div class="news-card-img"><img src="kalmar1.jpeg" alt="N1"></div>
-        <div class="news-card-body"><h3>Təzə Kalmar Reseptləri</h3><p>Dadlı və asan hazırlanan dəniz məhsulları.</p></div>
+        <div class="news-card-img">
+          <img src="kalmar1.jpeg" alt="Reseptlər">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Reseptler</span>
+          <h3>Sarımsaq və Zeytun Yağında Qovrulmuş Kalmar</h3>
+          <p>Bu, tam təbii kalmar əti və dadının keyfiyyətini ön plana çıxaran sürətli və sadə bir reseptdir.</p>
+        </div>
       </div>
+
       <div class="news-card">
-        <div class="news-card-img"><img src="skumbria2.jpeg" alt="N2"></div>
-        <div class="news-card-body"><h3>Hisə Verilmiş Balıqlar</h3><p>Yeni çeşidlərimiz artıq satışdadır.</p></div>
+        <div class="news-card-img">
+          <img src="cesidler2.jpeg" alt="Yeni Məhsullar">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Mağaza Yenilikləri</span>
+          <h3>Təzə gələn ceşidlərimizi burda izləyə bilərsiniz</h3>
+          <p>Məhsullarımızın təzəliyinə ve keyfiyyətinə tam zəmanət veririk.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-img">
+          <img src="skumbria2.jpeg" alt="Çeşidlər">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Məhsul Çeşidlərimiz</span>
+          <h3>Ən Təzə Dondurulmuş və Hisə Verilmiş Dəniz Məhsulları</h3>
+          <p>Dənizin ən təzə dadı süfrənizdə. Təzəliyi qorunan, dadı unudulmayan dəniz məhsulları</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ RESEPTLER ═══════════════ -->
+
+<!-- ═══════════════ RESEPTLƏR ═══════════════ -->
 <section class="recipes-section" id="recipes">
   <div class="recipes-inner">
-    <h2 class="section-title">BİZİM RESEPTLƏR</h2>
-    <div class="recipe-row">
-      <div><strong>Qızardılmış Kalmar</strong><p>Sarımsaq və zeytun yağı ilə</p></div>
-      <a href="#" class="btn-outline">BAX</a>
+    <div class="recipes-header">
+      <div>
+        <span class="section-eyebrow">Dadlı Reseptlər</span>
+        <h2 class="section-title">BİZİM<br>RESEPTLƏR</h2>
+      </div>
+      <a href="#" class="btn-outline">BÜTÜN RESEPTLƏR</a>
     </div>
-    <div class="recipe-row">
-      <div><strong>Kokteyl Kreveti</strong><p>Acılı sous ilə servis edilir</p></div>
-      <a href="#" class="btn-outline">BAX</a>
+
+    <div class="recipes-list">
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Sarımsaq və Zeytun Yağında Qızardılmış Kalmar</div>
+          <div class="recipe-row-desc">Sadə və sürətli hazırlanma</div>
+        </div>
+        <span class="recipe-row-tag">Kalmar</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Kalmar Salatı</div>
+          <div class="recipe-row-desc">Dənizdən gələn təzə ləzzət</div>
+        </div>
+        <span class="recipe-row-tag">Kalmar</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Kokteyl Kreveti</div>
+          <div class="recipe-row-desc">Acılı ve tam ləzzətli</div>
+        </div>
+        <span class="recipe-row-tag">Krevetka</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Qril Kreveti</div>
+          <div class="recipe-row-desc">Ədviyyat ve ləzzətlə dolu</div>
+        </div>
+        <span class="recipe-row-tag">Krevetka</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Kalmar Çeviç</div>
+          <div class="recipe-row-desc">Təzə yay çeviçi</div>
+        </div>
+        <span class="recipe-row-tag">Kalmar</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Qızardılmış Kalmar</div>
+          <div class="recipe-row-desc">İndi bütün restoranların klassik yeməyi sizin evinizdə</div>
+        </div>
+        <span class="recipe-row-tag">Kalmar</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Dungeness Xərçəng Kotletləri</div>
+          <div class="recipe-row-desc">Dadlı ve şirəli</div>
+        </div>
+        <span class="recipe-row-tag">Xərçəng</span>
+        <a href="#" class="recipe-row-go">İrəli</a>
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- ═══════════════ CTA ═══════════════ -->
 <section class="cta-section" id="contact">
-  <h2>SUALINIZ VAR?<br>BİZƏ YAZIN</h2>
-  <a href="#" class="btn-cta-white">ƏLAQƏ SAXLA</a>
+  <div class="cta-inner">
+    <span class="cta-sub">Əlaqə</span>
+    <h2>SUALINIZ VAR?<br>BİZƏ SORUŞUN</h2>
+    <a href="" class="btn-cta-white">ƏLAQƏ</a>
+  </div>
 </section>
+
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div>
-        <div class="footer-logo-wrap">
-          <img src="logo.jpeg" alt="Logo" class="footer-brand-img">
-          <div class="footer-logo-text">KREVETKA <span>ŞƏKİ</span></div>
-        </div>
-        <p style="font-size: 0.8rem; color: #666;">Şəkidə dəniz məhsullarının tək ünvanı.</p>
+      <div class="footer-logo-wrap">
+        <!-- FOOTER LOGO -->
+        <img src="logo.jpeg" alt="Logo">
+        <div class="footer-logo-text">KREVETKA <span>ŞƏKİ</span></div>
       </div>
+
       <div class="footer-col">
         <h4>Məhsullar</h4>
         <ul>
-          <li>Krevetka</li>
-          <li>Xərçəng</li>
-          <li>Kalmar</li>
+          <li><a href="#">Krevetka</a></li>
+          <li><a href="#">Xərçəng</a></li>
+          <li><a href="#">Dəniz İlbizi</a></li>
+          <li><a href="#">Kalmar</a></li>
+          <li><a href="#">Dəniz Xərçəngi</a></li>
+          <li><a href="#">Hisə Verilmiş Balıqlar</a></li>
+          <li><a href="#">Dondurulmuş Balıqlar</a></li>
         </ul>
       </div>
+
       <div class="footer-col">
-        <h4>Linklər</h4>
+        <h4>Our Story</h4>
         <ul>
-          <li>Haqqımızda</li>
-          <li>Reseptlər</li>
-          <li>Əlaqə</li>
+          <li><a href="#">Process</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Values</a></li>
         </ul>
       </div>
+
       <div class="footer-col">
-        <h4>Abunə Ol</h4>
-        <input type="email" placeholder="Email..." style="padding:8px; width:100%; border:1px solid #ddd;">
+        <h4>Recipes</h4>
+        <ul>
+          <li><a href="#">Krevetka</a></li>
+          <li><a href="#">Xərçəng</a></li>
+          <li><a href="#">Dəniz İlbizi</a></li>
+          <li><a href="#">Dəniz Xərçəngi</a></li>
+          <li><a href="#">Hisə Verilmiş Balıqlar</a></li>
+          <li><a href="#">Kalmar</a></li>
+        </ul>
+      </div>
+
+      <div class="newsletter-col">
+        <h4>Yeniliklərimiz</h4>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">QEYDİYYAT</button>
+        </div>
       </div>
     </div>
-    <div style="text-align:center; padding-top:2rem; border-top:1px solid #ddd; font-size:0.7rem;">
-      © 2024 Krevetka Şəki · Bütün Hüquqlar Qorunur
+
+    <div class="footer-bottom">
+      <p>© Krevetka Şəki · Bütün Hüquqlar Qorunur</p>
     </div>
   </div>
 </footer>
 
-<script>
-function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
 
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// ─── MOBILE MENU ─────────────────────────────
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.querySelector('.nav-hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+// ─── HERO SLIDER ─────────────────────────────
 const slides = document.querySelectorAll('.hero-slide');
-const tabs = document.querySelectorAll('.hero-tab');
-let current = 0;
-let timer;
+const tabs   = document.querySelectorAll('.hero-tab');
+let current  = 0;
+let heroTimer;
 
 function goSlide(idx) {
   slides[current].classList.remove('active');
@@ -854,20 +1477,57 @@ function goSlide(idx) {
   tabs[current].classList.add('active');
 }
 
-function startTimer() { timer = setInterval(() => goSlide((current + 1) % slides.length), 5000); }
+function nextSlide() {
+  goSlide((current + 1) % slides.length);
+}
+
+function startHeroTimer() {
+  heroTimer = setInterval(nextSlide, 5000);
+}
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
-    clearInterval(timer);
+    clearInterval(heroTimer);
     goSlide(parseInt(tab.dataset.idx));
-    startTimer();
+    startHeroTimer();
   });
 });
-startTimer();
 
+startHeroTimer();
+
+// ─── NAVBAR SCROLL EFFECT ────────────────────
+const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
-  const nav = document.querySelector('.navbar');
-  nav.style.boxShadow = window.scrollY > 30 ? '0 2px 24px rgba(0,0,0,0.08)' : 'none';
+  if (window.scrollY > 30) {
+    navbar.style.boxShadow = '0 2px 24px rgba(0,0,0,0.08)';
+  } else {
+    navbar.style.boxShadow = 'none';
+  }
+});
+
+// ─── SMOOTH SCROLL ───────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    }
+  });
+});
+
+// ─── NEWSLETTER ──────────────────────────────
+document.querySelector('.newsletter-form button').addEventListener('click', () => {
+  const input = document.querySelector('.newsletter-form input');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    input.placeholder = 'Thank you for subscribing!';
+    setTimeout(() => { input.placeholder = 'Your email address'; }, 3000);
+  } else {
+    input.style.outline = '2px solid red';
+    setTimeout(() => { input.style.outline = ''; }, 1500);
+  }
 });
 </script>
 
