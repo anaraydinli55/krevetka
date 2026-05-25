@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Blue Sea</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #fff;
+  color: #1a1a2e;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+
+/* ═══════════════════════════════════════════
+   VARIABLES
+═══════════════════════════════════════════ */
+:root {
+  --navy: #0d1b3e;
+  --blue: #1a3a6e;
+  --mid-blue: #1e4fa0;
+  --light-blue: #e8f0fa;
+  --accent: #2563b8;
+  --text: #1a1a2e;
+  --text-mid: #4a5568;
+  --text-light: #8a9bb0;
+  --white: #ffffff;
+  --off-white: #f7f9fc;
+  --border: #e2e8f0;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0f0f0; }
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo img {
+  height: 52px;
+  width: auto;
+}
+
+/* Logo placeholder (text fallback) */
+.nav-logo-text {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.nav-logo-text span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white) !important;
+  background: var(--navy);
+  padding: 10px 22px;
+  border-radius: 2px;
+  transition: background 0.2s !important;
+}
+
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--accent) !important; color: #fff !important; }
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  width: 24px; height: 2px;
+  background: var(--navy);
+  transition: 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px; left: 0; right: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  z-index: 999;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--navy);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════ */
+.hero {
+  margin-top: 72px;
+  position: relative;
+  height: calc(100vh - 72px);
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.hero-slide.active { opacity: 1; }
+
+.hero-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark gradient overlay */
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(8,20,50,0.72) 0%,
+    rgba(8,20,50,0.35) 55%,
+    rgba(8,20,50,0.1) 100%
+  );
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 7vw;
+  max-width: 700px;
+}
+
+.hero-heading {
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+/* Product tabs */
+.hero-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-tab {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 1px;
+}
+
+.hero-tab:hover,
+.hero-tab.active {
+  color: var(--white);
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* Hero scroll indicator */
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0%,100% { opacity:0.6; transform: scaleY(1); }
+  50%      { opacity:1;   transform: scaleY(0.7); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION COMMON
+═══════════════════════════════════════════ */
+.section-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.section-title br + span,
+.section-title .accent { color: var(--accent); }
+
+/* ═══════════════════════════════════════════
+   PRODUCTS CAROUSEL
+═══════════════════════════════════════════ */
+.products-section {
+  padding: 5rem 0 4rem;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.products-header {
+  max-width: 1280px;
+  margin: 0 auto 2.5rem;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.products-header .section-title { font-size: clamp(1.4rem,3vw,2rem); }
+
+.btn-outline {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+  padding: 10px 24px;
+  border-radius: 2px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.btn-outline:hover { background: var(--navy); color: #fff; }
+
+/* Infinite scroll track */
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 10;
+  pointer-events: none;
+}
+.carousel-wrapper::before { left:0;  background:linear-gradient(to right, #fff 0%, transparent 100%); }
+.carousel-wrapper::after  { right:0; background:linear-gradient(to left,  #fff 0%, transparent 100%); }
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  animation: carousel-scroll 28s linear infinite;
+  width: max-content;
+}
+
+.carousel-track:hover { animation-play-state: paused; }
+
+@keyframes carousel-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.product-card {
+  flex-shrink: 0;
+  width: 260px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover { transform: translateY(-8px); }
+
+.product-card-img {
+  width: 260px;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 3px;
+  position: relative;
+  background: var(--light-blue);
+}
+
+.product-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-card-img img { transform: scale(1.07); }
+
+.product-card-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════
+   DISCOVER — 2×2 IMAGE TILES
+═══════════════════════════════════════════ */
+.discover-section {
+  padding: 2rem 0;
+  background: var(--white);
+}
+
+.discover-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.discover-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.discover-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.discover-tile {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.discover-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,20,50,0.68) 0%, rgba(8,20,50,0.08) 55%);
+  transition: background 0.35s;
+}
+
+.discover-tile:hover::after {
+  background: linear-gradient(to top, rgba(8,20,50,0.80) 0%, rgba(8,20,50,0.20) 55%);
+}
+
+.discover-tile img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  min-height: 320px;
+  transition: transform 0.6s ease;
+}
+
+.discover-tile:hover img { transform: scale(1.04); }
+
+.discover-tile-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 2rem 2.5rem;
+}
+
+.tile-eyebrow {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.tile-title {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 900;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* Hover arrow */
+.tile-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.8rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.3s ease;
+}
+
+.discover-tile:hover .tile-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO SECTION — OUR COMMITMENT
+═══════════════════════════════════════════ */
+.video-section {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.video-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.video-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.video-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5,15,40,0.68);
+}
+
+.video-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  padding: 0 2rem;
+}
+
+.video-content h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+}
+
+.video-content p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.75;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.btn-white {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--white);
+  padding: 14px 32px;
+  border-radius: 2px;
+  display: inline-block;
+  transition: all 0.25s;
+}
+.btn-white:hover { background: var(--light-blue); }
+
+/* ═══════════════════════════════════════════
+   WHAT'S NEW — NEWS SECTION
+═══════════════════════════════════════════ */
+.news-section {
+  padding: 5rem 0;
+  background: var(--off-white);
+}
+
+.news-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.news-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.news-header .section-sub {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.news-card {
+  background: var(--white);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.news-card-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--light-blue);
+}
+
+.news-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.news-card:hover .news-card-img img { transform: scale(1.06); }
+
+.news-card-body {
+  padding: 1.5rem;
+}
+
+.news-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.news-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 0.7rem;
+}
+
+.news-card-body p {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   RECIPES — WHAT WE'VE BEEN COOKING
+═══════════════════════════════════════════ */
+.recipes-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+
+.recipes-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.recipes-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipes-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.recipe-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recipe-row:hover { background: var(--off-white); padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; }
+
+.recipe-row-left { flex: 1; }
+
+.recipe-row-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recipe-row-desc {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+}
+
+.recipe-row-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.recipe-row-go {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+  padding: 8px 18px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.recipe-row:hover .recipe-row-go {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════
+   CTA — LET'S TALK FISH
+═══════════════════════════════════════════ */
+.cta-section {
+  background: var(--navy);
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50%; right: -10%;
+  width: 50%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(37,99,184,0.15) 0%, transparent 70%);
+}
+
+.cta-inner { position: relative; z-index: 2; }
+
+.cta-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.cta-section h2 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+}
+
+.btn-cta-white {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--white);
+  padding: 16px 40px;
+  border-radius: 2px;
+  display: inline-block;
+  transition: all 0.25s;
+}
+.btn-cta-white:hover { background: var(--light-blue); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: #f0f4f8;
+  padding: 5rem 2.5rem 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr 1fr 280px;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+  align-items: start;
+}
+
+.footer-logo-wrap {
+  display: flex;
+  align-items: flex-start;
+}
+
+.footer-logo-text {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.footer-logo-text span { color: var(--accent); }
+
+.footer-col h4 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--navy);
+  display: inline-block;
+}
+
+.footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.footer-col ul li a {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  font-weight: 500;
+  transition: color 0.2s;
+  letter-spacing: 0.03em;
+}
+.footer-col ul li a:hover { color: var(--navy); }
+
+/* Newsletter */
+.newsletter-col h4 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--navy);
+  display: inline-block;
+}
+
+.newsletter-form {
+  display: flex;
+  margin-top: 0.5rem;
+  border: 1.5px solid var(--navy);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 11px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--navy);
+  outline: none;
+}
+
+.newsletter-form input::placeholder { color: var(--text-light); }
+
+.newsletter-form button {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  padding: 11px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.newsletter-form button:hover { background: var(--accent); }
+
+/* Footer bottom */
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+.footer-bottom p a {
+  color: var(--text-mid);
+  font-weight: 600;
+}
+.footer-bottom p a:hover { color: var(--navy); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1fr 1fr 1fr; }
+  .discover-grid { gap: 10px; }
+  .discover-tile img { min-height: 260px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero-heading { font-size: 2.4rem; }
+  .hero-content { padding: 0 5vw; }
+
+  .discover-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .discover-tile img { min-height: 240px; }
+
+  .video-section { height: 500px; }
+
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-logo-wrap { grid-column: 1/-1; }
+  .newsletter-col { grid-column: 1/-1; }
+
+  .products-header { flex-direction: column; align-items: flex-start; }
+
+  .news-header { flex-direction: column; }
+  .recipes-header { flex-direction: column; }
+
+  .cta-section h2 { font-size: 2.2rem; }
+
+  .recipe-row-tag { display: none; }
+}
+
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-tabs { gap: 0.4rem; }
+  .hero-tab { padding: 7px 13px; font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <!-- Replace <img> tag with your actual logo:
+           <img src="your-logo.png" alt="Blue Sea"> -->
+      <div class="nav-logo-text">BLUE <span>SEA</span></div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#products">PRODUCTS</a></li>
+      <li><a href="#discover">ABOUT US</a></li>
+      <li><a href="#recipes">RECIPES</a></li>
+      <li><a href="#news">NEWS</a></li>
+      <li><a href="#contact" class="nav-cta">CONTACT US</a></li>
+    </ul>
+
+    <div class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" onclick="toggleMobileMenu()">PRODUCTS</a>
+  <a href="#discover" onclick="toggleMobileMenu()">ABOUT US</a>
+  <a href="#recipes"  onclick="toggleMobileMenu()">RECIPES</a>
+  <a href="#news"     onclick="toggleMobileMenu()">NEWS</a>
+  <a href="#contact"  onclick="toggleMobileMenu()">CONTACT US</a>
+</div>
+
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+
+  <!-- Background slides — replace src="" with your actual images -->
+  <div class="hero-slides">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=1800&q=80" alt="Shrimp">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80" alt="Crab">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1611171710791-9968c88e1e8a?w=1800&q=80" alt="Calamari">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=1800&q=80" alt="Finfish">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=1800&q=80" alt="Scallops">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=1800&q=80" alt="Lobster">
+    </div>
+  </div>
+
+  <!-- Text + tabs -->
+  <div class="hero-content">
+    <h1 class="hero-heading">DELIVERING<br>THE BEST<br>IN CLASS</h1>
+
+    <div class="hero-tabs">
+      <button class="hero-tab active" data-idx="0">Shrimp</button>
+      <button class="hero-tab" data-idx="1">Crab</button>
+      <button class="hero-tab" data-idx="2">Calamari</button>
+      <button class="hero-tab" data-idx="3">Finfish</button>
+      <button class="hero-tab" data-idx="4">Scallops</button>
+      <button class="hero-tab" data-idx="5">Lobster</button>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ PRODUCTS CAROUSEL ═══════════════ -->
+<section class="products-section" id="products">
+  <div class="products-header">
+    <div>
+      <span class="section-eyebrow">Our Products</span>
+      <h2 class="section-title">OUR PRODUCTS</h2>
+    </div>
+    <a href="#" class="btn-outline">VIEW ALL</a>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Set 1 -->
+      <div class="product-card">
+        <div class="product-card-img">
+          <!-- Replace src with your image e.g. src="shrimp.jpg" -->
+          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="Shrimp">
+        </div>
+        <div class="product-card-label">SHRIMP</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70" alt="Crab">
+        </div>
+        <div class="product-card-label">CRAB</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=70" alt="Scallops">
+        </div>
+        <div class="product-card-label">SCALLOPS</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=600&q=70" alt="Lobster">
+        </div>
+        <div class="product-card-label">LOBSTER</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=70" alt="Finfish">
+        </div>
+        <div class="product-card-label">FINFISH</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1611171710791-9968c88e1e8a?w=600&q=70" alt="Calamari">
+        </div>
+        <div class="product-card-label">CALAMARI</div>
+      </div>
+      <!-- Set 2 (duplicate for infinite loop) -->
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=70" alt="Shrimp">
+        </div>
+        <div class="product-card-label">SHRIMP</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70" alt="Crab">
+        </div>
+        <div class="product-card-label">CRAB</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=70" alt="Scallops">
+        </div>
+        <div class="product-card-label">SCALLOPS</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=600&q=70" alt="Lobster">
+        </div>
+        <div class="product-card-label">LOBSTER</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=70" alt="Finfish">
+        </div>
+        <div class="product-card-label">FINFISH</div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1611171710791-9968c88e1e8a?w=600&q=70" alt="Calamari">
+        </div>
+        <div class="product-card-label">CALAMARI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ DISCOVER BLUE SEA (2×2 tiles) ═══════════════ -->
+<section class="discover-section" id="discover">
+  <div class="discover-inner">
+    <div class="discover-header">
+      <span class="section-eyebrow">Discover Blue Sea</span>
+      <h2 class="section-title">DISCOVER BLUE SEA</h2>
+    </div>
+
+    <div class="discover-grid">
+
+      <!-- Tile 1 — Our Products -->
+      <a href="#products" class="discover-tile">
+        <!-- Replace src with your image e.g. src="products-bg.jpg" -->
+        <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&q=75" alt="Our Products">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">Our Products</span>
+          <div class="tile-title">HIGH QUALITY<br>SEAFOOD</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+      <!-- Tile 2 — Our Process -->
+      <a href="#" class="discover-tile">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=75" alt="Our Process">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">Our Process</span>
+          <div class="tile-title">FROM SEA<br>TO TABLE</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+      <!-- Tile 3 — Our Team -->
+      <a href="#" class="discover-tile">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&q=75" alt="The Team">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">The Blue Sea Team</span>
+          <div class="tile-title">WHO<br>WE ARE</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+      <!-- Tile 4 — Recipes -->
+      <a href="#recipes" class="discover-tile">
+        <img src="https://images.unsplash.com/photo-1519984388953-d2406bc725e1?w=900&q=75" alt="Recipes">
+        <div class="discover-tile-content">
+          <span class="tile-eyebrow">Delicious Recipes</span>
+          <div class="tile-title">JOY OF THE<br>KITCHEN</div>
+          <div class="tile-arrow">Explore →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIDEO — OUR COMMITMENT ═══════════════ -->
+<section class="video-section">
+  <div class="video-bg">
+    <!-- Replace src with your video file e.g. src="commitment.mp4" -->
+    <video autoplay muted loop playsinline
+      src="https://blueseaproducts.com/wp-content/uploads/2022/06/pexels-rostislav-uzunov-7513671.mp4">
+    </video>
+  </div>
+  <div class="video-content">
+    <h2>OUR COMMITMENT</h2>
+    <p>Our goal is to provide our customers with the best in class products and services.</p>
+    <a href="#" class="btn-white">LEARN MORE</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════ NEWS ═══════════════ -->
+<section class="news-section" id="news">
+  <div class="news-inner">
+    <div class="news-header">
+      <div>
+        <span class="section-eyebrow">What's New</span>
+        <h2 class="section-title">WHAT'S NEW?</h2>
+        <p class="section-sub" style="margin-top:.6rem;font-size:.8rem;color:#4a5568">The latest from Blue Sea</p>
+      </div>
+      <a href="#" class="btn-outline">READ MORE</a>
+    </div>
+
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-card-img">
+          <!-- Replace src with your news image -->
+          <img src="https://images.unsplash.com/photo-1611171710791-9968c88e1e8a?w=600&q=70" alt="News 1">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Recipe</span>
+          <h3>Sauteed Calamari in Garlic and Olive Oil</h3>
+          <p>This is a quick and simple recipe that will highlight the quality of Blue Sea's all-natural New Zealand Calamari Tubes and Tentacles.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-img">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=70" alt="News 2">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Company News</span>
+          <h3>Edward Smith accepted into National Fisheries Institute</h3>
+          <p>Blue Sea Products LLC is happy to congratulate Edward Smith, Director of Regional and National Sales on his acceptance into the NFI Future Leaders Class.</p>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-img">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=70" alt="News 3">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Award</span>
+          <h3>Entrepreneur Of The Year® 2022</h3>
+          <p>CEO Thomas Jacob is an Entrepreneur Of The Year® 2022 New Jersey Award winner, joining an esteemed multi-industry community of entrepreneurs.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ RECIPES ═══════════════ -->
+<section class="recipes-section" id="recipes">
+  <div class="recipes-inner">
+    <div class="recipes-header">
+      <div>
+        <span class="section-eyebrow">Delicious Recipes</span>
+        <h2 class="section-title">WHAT WE'VE<br>BEEN COOKING</h2>
+      </div>
+      <a href="#" class="btn-outline">ALL RECIPES</a>
+    </div>
+
+    <div class="recipes-list">
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Sauteed Calamari in Garlic and Olive Oil</div>
+          <div class="recipe-row-desc">Something quick and easy</div>
+        </div>
+        <span class="recipe-row-tag">Calamari</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Calamari Salad</div>
+          <div class="recipe-row-desc">Fresh flavor from the sea</div>
+        </div>
+        <span class="recipe-row-tag">Calamari</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Cocktail Shrimp</div>
+          <div class="recipe-row-desc">Spicy and full of flavor</div>
+        </div>
+        <span class="recipe-row-tag">Shrimp</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Grilled Shrimp</div>
+          <div class="recipe-row-desc">Full of spice and flavor</div>
+        </div>
+        <span class="recipe-row-tag">Shrimp</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Calamari Ceviche</div>
+          <div class="recipe-row-desc">A fresh summer ceviche</div>
+        </div>
+        <span class="recipe-row-tag">Calamari</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Calamari Fritti</div>
+          <div class="recipe-row-desc">A staple from all restaurants now in your house</div>
+        </div>
+        <span class="recipe-row-tag">Calamari</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+      <div class="recipe-row">
+        <div class="recipe-row-left">
+          <div class="recipe-row-name">Dungeness Crab Cakes</div>
+          <div class="recipe-row-desc">Delicious and succulent</div>
+        </div>
+        <span class="recipe-row-tag">Crab</span>
+        <a href="#" class="recipe-row-go">GO</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <span class="cta-sub">Get In Touch</span>
+    <h2>QUESTIONS?<br>LET'S TALK FISH</h2>
+    <a href="mailto:info@blueseaproducts.com" class="btn-cta-white">CONTACT US</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <div class="footer-logo-wrap">
+        <!-- Replace with your footer logo img if needed -->
+        <div class="footer-logo-text">BLUE <span>SEA</span></div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#">Shrimp</a></li>
+          <li><a href="#">Crab</a></li>
+          <li><a href="#">Scallops</a></li>
+          <li><a href="#">Lobster</a></li>
+          <li><a href="#">Finfish</a></li>
+          <li><a href="#">Calamari</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Our Story</h4>
+        <ul>
+          <li><a href="#">Process</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Values</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Recipes</h4>
+        <ul>
+          <li><a href="#">Shrimp</a></li>
+          <li><a href="#">Crab</a></li>
+          <li><a href="#">Scallops</a></li>
+          <li><a href="#">Lobster</a></li>
+          <li><a href="#">Finfish</a></li>
+          <li><a href="#">Calamari</a></li>
+        </ul>
+      </div>
+
+      <div class="newsletter-col">
+        <h4>Newsletter</h4>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">SUBSCRIBE</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© Blue Sea Products LLC · All rights reserved</p>
+      <p>Designed by <a href="#">PolyFrame</a> · Developed by <a href="#">Founders Approach</a></p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// ─── MOBILE MENU ─────────────────────────────
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.querySelector('.nav-hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+// ─── HERO SLIDER ─────────────────────────────
+const slides = document.querySelectorAll('.hero-slide');
+const tabs   = document.querySelectorAll('.hero-tab');
+let current  = 0;
+let heroTimer;
+
+function goSlide(idx) {
+  slides[current].classList.remove('active');
+  tabs[current].classList.remove('active');
+  current = idx;
+  slides[current].classList.add('active');
+  tabs[current].classList.add('active');
+}
+
+function nextSlide() {
+  goSlide((current + 1) % slides.length);
+}
+
+function startHeroTimer() {
+  heroTimer = setInterval(nextSlide, 5000);
+}
+
+// Tab click
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    clearInterval(heroTimer);
+    goSlide(parseInt(tab.dataset.idx));
+    startHeroTimer();
+  });
+});
+
+startHeroTimer();
+
+// ─── NAVBAR SCROLL EFFECT ────────────────────
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 30) {
+    navbar.style.boxShadow = '0 2px 24px rgba(0,0,0,0.08)';
+  } else {
+    navbar.style.boxShadow = 'none';
+  }
+});
+
+// ─── SMOOTH SCROLL ───────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    }
+  });
+});
+
+// ─── NEWSLETTER ──────────────────────────────
+document.querySelector('.newsletter-form button').addEventListener('click', () => {
+  const input = document.querySelector('.newsletter-form input');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    input.placeholder = 'Thank you for subscribing!';
+    setTimeout(() => { input.placeholder = 'Your email address'; }, 3000);
+  } else {
+    input.style.outline = '2px solid red';
+    setTimeout(() => { input.style.outline = ''; }, 1500);
+  }
+});
+</script>
+
+</body>
+</html>
